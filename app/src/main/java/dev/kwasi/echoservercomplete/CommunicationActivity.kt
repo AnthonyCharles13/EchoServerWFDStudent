@@ -8,6 +8,7 @@ import android.net.wifi.p2p.WifiP2pManager
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -166,9 +167,20 @@ class CommunicationActivity : AppCompatActivity(), WifiDirectInterface, PeerList
         } else if (groupInfo.isGroupOwner && server == null){
             server = Server(this)
             deviceIp = "192.168.49.1"
+            val dummyPeers = listOf(
+                createDummyPeer("Peer 1", "00:11:22:33:44:55"),
+                createDummyPeer("Peer 2", "66:77:88:99:AA:BB")
+            )
+
+            peerListAdapter?.updateList(dummyPeers)
         } else if (!groupInfo.isGroupOwner && client == null) {
             client = Client(this)
             deviceIp = client!!.ip
+        }
+        runOnUiThread{
+            val ssid: String = groupInfo?.networkName ?: ""
+            val pass: String = groupInfo?.passphrase ?: ""
+            findViewById<TextView>(R.id.networkInfo).text = "Network: $ssid\nPassword: $pass"
         }
     }
 
@@ -186,6 +198,14 @@ class CommunicationActivity : AppCompatActivity(), WifiDirectInterface, PeerList
         runOnUiThread{
             chatListAdapter?.addItemToEnd(content)
         }
+    }
+
+    fun createDummyPeer(name: String, address: String): WifiP2pDevice {
+        val dummyPeer = WifiP2pDevice()
+        dummyPeer.deviceName = name
+        dummyPeer.deviceAddress = address
+        dummyPeer.status = WifiP2pDevice.CONNECTED // Simulate connected peer
+        return dummyPeer
     }
 
 }

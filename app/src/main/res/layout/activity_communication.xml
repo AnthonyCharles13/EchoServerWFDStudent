@@ -45,51 +45,65 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clNoWifiDirectConnection"
-        android:padding="32dp"
         android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:padding="32dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
         <TextView
             android:id="@+id/tvWfdDisconnected"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="WiFi Direct - Disconnected"
-            android:textSize="18sp"
+            android:text="Attendance and Feedback System"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/teacherTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Teacher"
+            android:textSize="18sp"
+            android:layout_marginTop="65sp"
+            android:layout_marginLeft="15sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvWfdDisconnected" />
+
         <Button
             android:id="@+id/btnCreateGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="62dp"
+            android:layout_marginTop="100dp"
             android:layout_marginEnd="50dp"
             android:onClick="createGroup"
             android:text="Create Group"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintVertical_chainStyle="packed"
             app:layout_constraintEnd_toStartOf="@+id/btnDiscover"
+            app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvWfdDisconnected" />
+            app:layout_constraintTop_toBottomOf="@+id/tvWfdDisconnected"
+            app:layout_constraintVertical_chainStyle="packed" />
+
 
         <Button
             android:id="@+id/btnDiscover"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="62dp"
+            android:layout_marginTop="100dp"
             android:onClick="discoverNearbyPeers"
             android:text="Discover Nearby"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/btnCreateGroup"
             app:layout_constraintTop_toBottomOf="@+id/tvWfdDisconnected" />
-
 
         <Button
             android:id="@+id/btnEndClass"
@@ -101,6 +115,17 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvWfdDisconnected" />
+
+        <TextView
+            android:id="@+id/networkInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="network_info"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toTopOf="@+id/btnEndClass"
+            app:layout_constraintEnd_toStartOf="@+id/btnDiscover"
+            app:layout_constraintStart_toEndOf="@+id/btnCreateGroup"
             app:layout_constraintTop_toBottomOf="@+id/tvWfdDisconnected" />
 
         <androidx.recyclerview.widget.RecyclerView
