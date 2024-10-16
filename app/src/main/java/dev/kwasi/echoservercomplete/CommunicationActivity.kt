@@ -88,6 +88,10 @@ class CommunicationActivity : AppCompatActivity(), WifiDirectInterface, PeerList
         wfdManager?.createGroup()
     }
 
+    fun endClass(view: View) {
+        wfdManager?.disconnect()
+    }
+
     fun discoverNearbyPeers(view: View) {
         wfdManager?.discoverPeers()
     }
@@ -148,7 +152,7 @@ class CommunicationActivity : AppCompatActivity(), WifiDirectInterface, PeerList
 
     override fun onGroupStatusChanged(groupInfo: WifiP2pGroup?) {
         val text = if (groupInfo == null){
-            "Group is not formed"
+            "Group not active/formed"
         } else {
             "Group has been formed"
         }
