@@ -169,15 +169,6 @@ class CommunicationActivity : AppCompatActivity(), WifiDirectInterface, PeerList
         toast.show()
         wfdHasConnection = groupInfo != null
 
-        if (wfdHasConnection && groupInfo != null) {
-            // Ensure the UI update happens on the main thread
-            runOnUiThread {
-                val classHeaderTv: TextView = findViewById(R.id.classHeader)
-                // Update class header with network name (class name)
-                classHeaderTv.text = "Currently Attending: ${groupInfo.networkName}"
-            }
-        }
-
         if (groupInfo == null){
             server?.close()
             client?.close()
@@ -188,11 +179,16 @@ class CommunicationActivity : AppCompatActivity(), WifiDirectInterface, PeerList
             client = Client(this)
             deviceIp = client!!.ip
         }
-        runOnUiThread{
-            val ssid: String = groupInfo?.networkName ?: ""
-            val pass: String = groupInfo?.passphrase ?: ""
-            //findViewById<TextView>(R.id.networkInfo).text = "Network: $ssid\nPassword: $pass"
+
+        if (wfdHasConnection && groupInfo != null) {
+            // Ensure the UI update happens on the main thread
+            runOnUiThread {
+                val classHeaderTv: TextView = findViewById(R.id.classHeader)
+                // Update class header with network name (class name)
+                classHeaderTv.text = "Currently Attending: ${groupInfo.networkName}"
+            }
         }
+
     }
 
     override fun onDeviceStatusChanged(thisDevice: WifiP2pDevice) {
