@@ -153,7 +153,7 @@ class CommunicationActivity : AppCompatActivity(), WifiDirectInterface, PeerList
 
     override fun onGroupStatusChanged(groupInfo: WifiP2pGroup?) {
         val text = if (groupInfo == null){
-            "Group not active/formed"
+            "Group is not active/formed"
         } else {
             "Group has been formed"
         }
@@ -167,12 +167,6 @@ class CommunicationActivity : AppCompatActivity(), WifiDirectInterface, PeerList
         } else if (groupInfo.isGroupOwner && server == null){
             server = Server(this)
             deviceIp = "192.168.49.1"
-            val dummyPeers = listOf(
-                createDummyPeer("Peer 1", "00:11:22:33:44:55"),
-                createDummyPeer("Peer 2", "66:77:88:99:AA:BB")
-            )
-
-            peerListAdapter?.updateList(dummyPeers)
         } else if (!groupInfo.isGroupOwner && client == null) {
             client = Client(this)
             deviceIp = client!!.ip
@@ -198,14 +192,6 @@ class CommunicationActivity : AppCompatActivity(), WifiDirectInterface, PeerList
         runOnUiThread{
             chatListAdapter?.addItemToEnd(content)
         }
-    }
-
-    fun createDummyPeer(name: String, address: String): WifiP2pDevice {
-        val dummyPeer = WifiP2pDevice()
-        dummyPeer.deviceName = name
-        dummyPeer.deviceAddress = address
-        dummyPeer.status = WifiP2pDevice.CONNECTED // Simulate connected peer
-        return dummyPeer
     }
 
 }
