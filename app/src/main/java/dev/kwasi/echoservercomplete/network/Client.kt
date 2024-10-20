@@ -38,12 +38,20 @@ class Client (private val networkMessageInterface: NetworkMessageInterface){
 
     fun sendMessage(content: ContentModel){
         thread {
-            if (!clientSocket.isConnected){
-                throw Exception("We aren't currently connected to the server!")
+            try {
+                if (!clientSocket.isConnected) {
+                    //throw Exception("We aren't currently connected to the server!")
+                    Log.e("CLIENT", "Not connected to the server")
+                    return@thread
+                }
+                val contentAsStr: String = Gson().toJson(content)
+                writer.write("$contentAsStr\n")
+                writer.flush()
+                Log.d("CLIENT", "Message sent from student: ${content.message}")
+            } catch (e: Exception) {
+                Log.e("CLIENT", "Error sending message: ${e.message}")
+                e.printStackTrace()
             }
-            val contentAsStr:String = Gson().toJson(content)
-            writer.write("$contentAsStr\n")
-            writer.flush()
         }
 
     }
